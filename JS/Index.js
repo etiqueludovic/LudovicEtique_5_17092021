@@ -4,6 +4,7 @@ class Produit{
         }   
 }
 
+
 let url = 'http://localhost:3000/api/teddies';
 
 fetch(url)
@@ -14,8 +15,14 @@ fetch(url)
                 document.querySelector(".produit").innerHTML += `<div class="vignette">
                                                                         <img src="${jsonProduit.imageUrl}" />
                                                                         <div class="name">${jsonProduit.name}</div>
-                                                                        <div class="price">${jsonProduit.price}</div>
+                                                                        <div class="price">${Number(jsonProduit.price/100)}€</div>
                                                                 </div>`
             }
 
     });
+
+fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+            console.log(data);
+    })

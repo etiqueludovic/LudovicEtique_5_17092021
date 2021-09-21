@@ -1,0 +1,21 @@
+#container{
+    display:flex;
+    background: #f3e9f1;
+    width:500px;
+    height:500px;
+}
+
+.vignette{
+    height:300px;
+    width:350px;
+    background: #f3e9f1;
+    border-radius: 10px;
+}
+
+.vignette img{
+    height: 250px;
+    width: 300px;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 20px;
+}

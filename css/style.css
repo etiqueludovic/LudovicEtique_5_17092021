@@ -63,10 +63,23 @@ h1 {
     border-radius: 20px;
 }
 
-Footer{
+footer{
     background-color:#f3e9f1;
     margin: 50px;
     border-radius: 20px;
     padding: 0px 40px 0px 40px;
     height:100px;
+    display:flex;
+    align-items: center;
+}
+
+footer li{
+    display:flex;
+    list-style: none;
+}
+
+footer ul{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
 }

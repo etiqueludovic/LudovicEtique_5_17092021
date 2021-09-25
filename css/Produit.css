@@ -1,21 +1,38 @@
 #container{
-    display:flex;
+    display:grid;
+    grid-template-areas: 
+                "img img"
+                "img img"
+                "name price"
+                "couleur qty"
+    ;
     background: #f3e9f1;
-    width:500px;
+    width:700px;
     height:500px;
+
 }
 
-.vignette{
-    height:300px;
-    width:350px;
-    background: #f3e9f1;
-    border-radius: 10px;
+main {
+    display: flex;
+    justify-content: center;
 }
 
-.vignette img{
-    height: 250px;
-    width: 300px;
-    object-fit: cover;
-    margin-top: 10px;
-    border-radius: 20px;
+img {
+    grid-area: img;
+}
+
+#couleur{
+    grid-area: couleur;
+}
+
+#price{
+    grid-area: price;
+}
+
+#name{
+    grid-area: name;
+}
+
+#quantite{
+    grid-area: qty;
 }

@@ -20,6 +20,10 @@ header{
 
 h1 {
     font-family: Rubik Beastly;
+}
+
+a{
+    text-decoration: none;
     color: rgba(82,30,5,1);
 }
 
@@ -52,15 +56,13 @@ h1 {
     height:300px;
     width:350px;
     background: #f3e9f1;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
-.vignette img{
-    height: 250px;
-    width: 300px;
+img{
     object-fit: cover;
-    margin-top: 10px;
-    border-radius: 20px;
+    max-width: 100%;
+    border-radius: 20px 20px 0px 0px;
 }
 
 footer{

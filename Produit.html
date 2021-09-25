@@ -13,17 +13,25 @@
 <body>
 <!--En-tête-->
 <header>
-        <h1 href="index.html">ORINOURS</h1>
-        <a id="panier"><i class="fas fa-shopping-cart"></i></a>
+        <h1><a href="Index.html">ORINOURS</a></h1>
+        <a href="Panier.html" id="panier"><i class="fas fa-shopping-cart"></i></a>
 </header>
 <!--Corp de page-->
+<main>
     <div id="container">
-    <div id="produitunique"></div>
-    <div id="image"></div>
-    <div id="name"></div>
-    <div id="price"></div>
-    <input type="number" id="Quantite"></input>
+    <div id="name" required></div>
+    <div id="price" required></div>
+    <label for="couleur" >Choisir une couleur:</label>
+    <select name="couleur" id="couleur" required>   
+    </select>
+    <input type="number" id="Quantite" required></input>
+    <button id="envoyer" type="submit" name="envoyer">Ajouter dans le Panier</button>
+    <form action="Index.html">
+        <input type="submit" value="Retour accueil" />
+    </form>
+    
     </div>
+</main>
 <!--pied de page-->
 <footer>
     <ul>
@@ -32,6 +40,6 @@
     </ul>
 </footer>
 
-<script src="js/produit.js"></script>
+<script src="js/Produit.js"></script>
 </body>
 </html>

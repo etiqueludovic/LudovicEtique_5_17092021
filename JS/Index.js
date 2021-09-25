@@ -17,8 +17,8 @@ fetch(url)
                                                                         <img src="${produit.imageUrl}" />
                                                                         <div class="name">${produit.name}</div>
                                                                         <div class="price">${price} €</div>
-                                                                        <div class="id">${produit._id}</div>
-                                                                </a>`}         
+                                                                        </a>
+                                                                `}         
     });
 
 fetch(url)

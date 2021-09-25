@@ -4,19 +4,73 @@ class Article{
     }   
 }
 
+// récupération de de l'id du produit 
 let params = new URL(document.location).searchParams;
-let id = params.get("id");
+let _id = params.get("id");
 
-let url2 = `http://localhost:3000/api/teddies/${id}`;
+const urllocal = `http://localhost:3000/api/teddies/${_id}`;
 
-fetch(url2)
+// récupération des données du produit
+fetch(urllocal)
     .then((response) => response.json())
     .then((jsondata) => {
-            console.log(jsondata);
-            
+       // console.table(jsondata);
                 let donnee = new Article(jsondata);
                 const price = `${(donnee.price/100).toFixed(2)}`;
-                document.querySelector("#image").innerHTML += `<img src="${donnee.imageUrl}"/>`;
-                document.querySelector("#name").textContent += `${donnee.name}`;
-                document.querySelector("#price").textContent +=  `${price}`;
+                document.querySelector("#container").innerHTML += `<img src="${donnee.imageUrl}"/>`;
+                document.querySelector("#name").textContent = `${donnee.name}`;
+                document.querySelector("#price").textContent =  `${price} €`;
+                for(let col of donnee.colors){
+                document.querySelector("#couleur").innerHTML +=  `<option value="${col}">${col}</option>`;}
+                
     });
+
+
+//----------récupération des valeurs de la commande------------//
+
+// événement sur le bouton envoyer
+document.addEventListener('click', function(){
+    document.querySelector('#envoyer').onclick=envoyer;
+});
+
+function envoyer(){
+    fetch(urllocal)
+        .then((response) => response.json())
+        .then((jsondata) => {
+        let donnee = new Article(jsondata);
+        const price = `${(donnee.price/100).toFixed(2)}`;
+        const col = document.querySelector("#couleur").value;
+        const qty = document.querySelector("#Quantite").value;
+        let formulaireProduit = {
+            id_art: `${donnee._id}`,
+            name_art: `${donnee.name}`,
+            col_art: `${col}`,
+            price_art: `${price}`,
+            qty_art: `${qty}`,
+        }
+        console.log(formulaireProduit);
+    // Ajout dans le LocalStorage    
+        let recordstorage = JSON.parse(localStorage.getItem("produit"));
+        const ajoutProduit = () => {
+            recordstorage.push(formulaireProduit);
+            localStorage.setItem("produit", JSON.stringify(recordstorage));
+        };
+    // s'il n'y a déjà des articles
+        if (recordstorage){
+            ajoutProduit();
+        }
+    // s'il n'y a pas d'article
+        else{
+            recordstorage = [];
+            ajoutProduit();
+        }      
+})
+};
+
+
+
+
+
+
+
+

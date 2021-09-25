@@ -1,5 +1,3 @@
-app.use('./Back-end/api/teddies', teddyRoutes);
-
 class Produits{
         constructor(jsonProduits){
                 jsonProduits && Object.assign(this, jsonProduits)

@@ -22,8 +22,12 @@ fetch(urllocal)
                 document.querySelector("#price").textContent =  `${price} €`;
                 for(let col of donnee.colors){
                 document.querySelector("#couleur").innerHTML +=  `<option value="${col}">${col}</option>`;}
+            })
+    .catch(function() {
+                document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
+                //console.log("Le serveur local (port: 3000) n'est pas lancé");
                 
-    });
+            });
 
 
 //----------récupération des valeurs de la commande------------//
@@ -32,6 +36,8 @@ fetch(urllocal)
 document.addEventListener('click', function(){
     document.querySelector('#envoyer').onclick=envoyer;
 });
+
+
 
 function envoyer(){
     fetch(urllocal)
@@ -48,12 +54,17 @@ function envoyer(){
             price_art: `${price}`,
             qty_art: `${qty}`,
         }
-        console.log(formulaireProduit);
+        let Total = {
+            pricetotal_art: `${price}`*`${qty}`,
+        }
     // Ajout dans le LocalStorage    
         let recordstorage = JSON.parse(localStorage.getItem("produit"));
+        let totalstorage = JSON.parse(localStorage.getItem("total"))
         const ajoutProduit = () => {
             recordstorage.push(formulaireProduit);
             localStorage.setItem("produit", JSON.stringify(recordstorage));
+            totalstorage.push(Total);
+            localStorage.setItem("total", JSON.stringify(totalstorage));
         };
     // s'il n'y a déjà des articles
         if (recordstorage){
@@ -62,6 +73,7 @@ function envoyer(){
     // s'il n'y a pas d'article
         else{
             recordstorage = [];
+            totalstorage = [];
             ajoutProduit();
         }      
 })

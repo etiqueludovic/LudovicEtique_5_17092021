@@ -21,9 +21,17 @@ fetch(url)
                                                                         <div class="price">${price} €</div>
                                                                         </div>
                                                                         </a>
+
                                                                 `}        
     })
     .catch(function() {
         document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
         //console.log("Le serveur local (port: 3000) n'est pas lancé"); // "zut !"
     });
+
+fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+            console.log(data);
+    });
+

@@ -9,6 +9,7 @@
     background: #f3e9f1;
     width:700px;
     height:500px;
+    border-radius: 20px;
 
 }
 
@@ -19,20 +20,26 @@ main {
 
 img {
     grid-area: img;
+    max-height:100%;
 }
 
 #couleur{
     grid-area: couleur;
+    padding: 10px;
+    text-align: center;
 }
 
 #price{
     grid-area: price;
+    padding: 10px;
 }
 
 #name{
     grid-area: name;
+    padding: 10px;
 }
 
-#quantite{
+#Quantite{
     grid-area: qty;
+    text-align: center;
 }

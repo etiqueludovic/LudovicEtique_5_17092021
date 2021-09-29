@@ -1,22 +1,26 @@
 // récupération du localStorage
 let recupstorage = JSON.parse(localStorage.getItem("produit"));
-console.log(recupstorage);
+//console.log(recupstorage);
 
+// récupération total 
+let recuptotal = JSON.parse(localStorage.getItem("total"));
 
 if(recupstorage == null){
     const paniervide = "Le panier est vide, veuillez ajouter des articles";
-    console.log(paniervide);
+    document.querySelector("thead").innerHTML = "Le panier est vide, veuillez ajouter des articles";
+    //console.log(paniervide);
 }else{
     for(i = 0;i < recupstorage.length; i++){
-        let pricetotal = `${recupstorage[i].price_art}`*`${recupstorage[i].qty_art}`;
         document.querySelector("#conteneur-table").innerHTML += `<tr>
                    <td class="nom">${recupstorage[i].name_art}</td>
                    <td class="col">${recupstorage[i].col_art}</td>
-                   <td class="qty">${recupstorage[i].qty_art}</td>
+                   <td class="qty"><input type="number" value="${recupstorage[i].qty_art}"></input></td>
                    <td class="price">${recupstorage[i].price_art} €</td>
-                   <td class="pricetotal">${pricetotal} €</td>
-                   <td class="delete"><input type="button" value="Supprimer la sélection" onClick="${deleted}"></td>
-               </tr>`
-            }
-             
-};
+                   <td class="pricetotal">${recuptotal[i].pricetotal_art} €</td>
+               </tr>` 
+               console.log(recuptotal[i].pricetotal_art)            
+}};
+  
+
+
+

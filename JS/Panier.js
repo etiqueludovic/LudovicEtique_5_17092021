@@ -20,7 +20,3 @@ if(recupstorage == null){
                </tr>` 
                console.log(recuptotal[i].pricetotal_art)            
 }};
-  
-
-
-

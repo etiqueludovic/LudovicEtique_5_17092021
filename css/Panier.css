@@ -1,19 +1,11 @@
-table{
+thead tr, tbody tr{
     display:grid;
-    row-gap: 0.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 1rem;
     column-gap: 1rem;
 }
 
 
-thead tr {
-    display: grid;
-    grid-template-columns: repeat(6,auto);
-    column-gap: 3rem;
-}
 
-tbody tr {
-    display: grid;
-    grid-template-columns: repeat(6,auto);
-    column-gap: 3rem;
-}
+
 

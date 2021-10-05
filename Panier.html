@@ -40,11 +40,17 @@
         <div id="TTC"></div>
     </section>
     <section id="formulaire">
-        <input type="text" id="firstname" aria-label="Votre prénom" placeholder="Jean" required>
-        <input type="text" id="lastname" aria-label="Votre nom" placeholder="Dupond" required>
-        <input type="text" id="adress" aria-label="Votre Adresse postale" placeholder="4 rue des bonbons" required>
-        <input type="text" id="city" aria-label="Votre ville" placeholder="Paris" required>
-        <input type="email" id="email"  aria-label="Votre email" placeholder="teddy@teddy.com" required>
+        <form action="" id="coordonnées">
+            <fieldset>
+                <legend>Vos coordonnées</legend>
+                <p><label>Nom</label><span id="e-lastname"></span><input type="text" name="lastname" placeholder="Dupond"></p>
+                <p><label>Prénom<span id="e-firstname"></span><input type="text" name="firstname" placeholder="Jean"></label></p>
+                <p><label>Adresse postale<span id="e-adress"></span><input type="text" name="adress" placeholder="Rue des nousnours"></label></p>
+                <p><label>Ville<span id="e-city"></span><input type="text" name="city" placeholder="Paris"></label></p>
+                <p><label>Email<span id="e-email"></span><input type="text" name="email" placeholder="orinours@orinours.com"></label></p>
+                <p><input type="submit" name="valider" value="Valider la commande"></p>
+            </fieldset>
+        </form>
     </section>
 </main>
 <!--pied de page-->

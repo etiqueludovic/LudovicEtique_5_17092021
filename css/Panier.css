@@ -7,6 +7,8 @@ thead tr, tbody tr{
 
 main{
     flex-direction: column;
+    text-align: center;
+    justify-content: center;
     row-gap: 3rem;
 }
 
@@ -16,6 +18,25 @@ main{
 }
 
 
+#formulaire {
+    height: 200px;
+    background: #f3e9f1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    padding: 20px;
 
+}
+
+#coordonnées{
+    display: grid;
+}
+
+
+fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 
 

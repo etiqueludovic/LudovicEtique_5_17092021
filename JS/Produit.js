@@ -48,36 +48,42 @@ function envoyer(){
         const col = document.querySelector("#couleur").value;
         const qty = document.querySelector("#Quantite").value;
         let formulaireProduit = {
-            id_art: `${donnee._id}`,
-            name_art: `${donnee.name}`,
-            col_art: `${col}`,
-            price_art: `${price}`,
-            qty_art: `${qty}`,
-        }
-        let Total = {
-            pricetotal_art: `${price}`*`${qty}`,
-        }
-    // Ajout dans le LocalStorage    
-        let recordstorage = JSON.parse(localStorage.getItem("produit"));
-        let totalstorage = JSON.parse(localStorage.getItem("total"))
-        const ajoutProduit = () => {
-            recordstorage.push(formulaireProduit);
-            localStorage.setItem("produit", JSON.stringify(recordstorage));
-            totalstorage.push(Total);
-            localStorage.setItem("total", JSON.stringify(totalstorage));
+            _id: `${donnee._id}`,
+            name: `${donnee.name}`,
+            colors: `${col}`,
+            price: `${price}`,
+            qty: `${qty}`,
+            pricetotal: `${price}`*`${qty}`,
         };
-    // s'il n'y a déjà des articles
+        let id_art = {
+            _id: `${donnee._id}`,
+            
+        };
+        console.log(id_art);
+        
+    // Ajout dans le LocalStorage    
+        let recordstorage = JSON.parse(localStorage.getItem("products"));
+        let recordID = JSON.parse(localStorage.getItem("id"));
+        const ajoutProduit = () => {
+            recordID.push(id_art);
+            localStorage.setItem("id", JSON.stringify(recordID))
+            recordstorage.push(formulaireProduit);
+            localStorage.setItem("products", JSON.stringify(recordstorage));
+        };
+    // s'il y a déjà des articles
         if (recordstorage){
             ajoutProduit();
         }
     // s'il n'y a pas d'article
         else{
             recordstorage = [];
-            totalstorage = [];
+            recordID = [];
             ajoutProduit();
         }      
 })
 };
+
+
 
 
 

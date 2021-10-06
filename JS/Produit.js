@@ -55,20 +55,12 @@ function envoyer(){
             qty: `${qty}`,
             pricetotal: `${price}`*`${qty}`,
         };
-        let id_art = {
-            _id: `${donnee._id}`,
-            
-        };
-        console.log(id_art);
         
     // Ajout dans le LocalStorage    
-        let recordstorage = JSON.parse(localStorage.getItem("products"));
-        let recordID = JSON.parse(localStorage.getItem("id"));
+        let recordstorage = JSON.parse(localStorage.getItem("produits"));
         const ajoutProduit = () => {
-            recordID.push(id_art);
-            localStorage.setItem("id", JSON.stringify(recordID))
             recordstorage.push(formulaireProduit);
-            localStorage.setItem("products", JSON.stringify(recordstorage));
+            localStorage.setItem("produits", JSON.stringify(recordstorage));
         };
     // s'il y a déjà des articles
         if (recordstorage){
@@ -77,7 +69,6 @@ function envoyer(){
     // s'il n'y a pas d'article
         else{
             recordstorage = [];
-            recordID = [];
             ajoutProduit();
         }      
 })

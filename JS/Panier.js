@@ -1,9 +1,5 @@
 // récupération du localStorage
-let produits = JSON.parse(localStorage.getItem("products"));
-let id = JSON.parse(localStorage.getItem("id"));
-console.log(id);
-
-
+let produits = JSON.parse(localStorage.getItem("produits"));
 
 var tot = 0;
 
@@ -28,35 +24,15 @@ if(produits == null){
                document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";
                document.querySelector('#tva').textContent = "Total TVA :  " + tva.toFixed(2) + " €";
                document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
+               const totalTTC = {totalTTC : tot}
+               localStorage.setItem("totalorder", JSON.stringify(totalTTC));
 };
 
 };
 };
 
 affichage();
-var coordonnées = document.getElementById("coordonnées");
-var lastName = coordonnées.elements["lastname"];
-var firstName = coordonnées.elements["firstname"];
-var adress = coordonnées.elements["adress"];
-var city = coordonnées.elements["city"];
-var email = coordonnées.elements["email"];
 
-const contact = {
-    firstName : firstName.value,
-    lastName : lastName.value,
-    address : adress.value,
-    city : city.value,
-    email : email.value,
-};
-            
-            let products = id;
-
-            const aSubmit= {
-            contact,
-            products,  
-          };
-        console.log("aSubmit");
-        console.table(aSubmit)
 
 function del(){
     let btn_suppr = document.querySelectorAll(".btn-suppr");
@@ -71,8 +47,8 @@ function del(){
             produits = produits.filter((el) => el._id+el.colors+[l] !== selection_id_suppr);   
             console.log(produits);
 
-            localStorage.setItem("products", JSON.stringify(produits));
-            alert("supression ok");
+            localStorage.setItem("produits", JSON.stringify(produits));
+            window.open("about:blank","supression ok","width=200,height=200");
             window.location.href = "panier.html";
         });
         
@@ -83,18 +59,16 @@ del();
 
 
 
-var coordonnées = document.getElementById("coordonnées");
-
 function valider(e){
-    for ( l = 0; l < produits.length; l++){
-        coordonnées.addEventListener('submit', valider);
+    
+        
 
         var lastName = coordonnées.elements["lastname"];
         var firstName = coordonnées.elements["firstname"];
         var adress = coordonnées.elements["adress"];
         var city = coordonnées.elements["city"];
         var email = coordonnées.elements["email"];
-        var e = true;
+        
         // le formulaire est-il OK?
         var form_OK = true;
 
@@ -104,7 +78,7 @@ function valider(e){
         }
         // Au final, on empeche l'envoi du formulaire si form_OK est faux    
         if(!form_OK){
-           // e.preventDefault();
+            e.preventDefault();
             document.querySelector("#e-email").textContent = 'Ce champ doit contenir un @ et un .'; 
         } 
 
@@ -112,7 +86,7 @@ function valider(e){
             form_OK = false;
          // Sinon en si tout est bien rempli alors on envoi le formulaire   
         }else{
-            
+            e.preventDefault();
             const contact = {
                 firstName : firstName.value,
                 lastName : lastName.value,
@@ -121,18 +95,21 @@ function valider(e){
                 email : email.value,
             };
 
-            
-            
-            let products = id;
-
-            const aSubmit= {
-            products,
-            contact,
-          };
-        console.log("aSubmit");
-        console.log(aSubmit)
+            products = Array();
+            for (let k = 0; k < produits.length; k++){ 
+                pro = produits[k]._id;
+                products.push(pro).toString;
+                    
+            };
+                const aSubmit= {
+                    contact,
+                    products,  
+                  }
+                 // console.log("aSubmit");
+                 // console.log(aSubmit);
             
           localStorage.setItem("contact", JSON.stringify(contact));
+          localStorage.setItem("products", JSON.stringify(products));
 
          const EnvoiPost = fetch('http://localhost:3000/api/teddies/order', {
                 method: "POST",
@@ -141,13 +118,26 @@ function valider(e){
                     'Content-Type': 'application/json',
                 }
             });
-            
+
+            EnvoiPost.then(async (response) =>{
+                try{
+                    console.log(response)
+                    const contenu = await response.json()
+                    console.log(contenu)
+                    localStorage.setItem("contenu", JSON.stringify(contenu));
+                    document.location.href = "Confirmation.html";
+                }
+                catch (e){
+                    console.log(e)
+                }
+            });
            
                 
-        };
+        
 }};
-valider();
 
+var coordonnées = document.getElementById("coordonnées");
+coordonnées.addEventListener('submit', valider);
 
 
 

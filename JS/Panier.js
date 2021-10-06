@@ -48,7 +48,6 @@ function del(){
             console.log(produits);
 
             localStorage.setItem("produits", JSON.stringify(produits));
-            window.open("about:blank","supression ok","width=200,height=200");
             window.location.href = "panier.html";
         });
         

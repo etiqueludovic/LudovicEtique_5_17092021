@@ -10,6 +10,8 @@ main{
     text-align: center;
     justify-content: center;
     row-gap: 3rem;
+    margin:50px;
+    background: #f3e9f1;
 }
 
 #tabTotal {

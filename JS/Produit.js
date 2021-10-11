@@ -63,11 +63,11 @@ function envoyer(){
             localStorage.setItem("produits", JSON.stringify(recordstorage));
         };
     // s'il y a déjà des articles
-        if (recordstorage){
+        if (recordstorage && qty > 0){
             ajoutProduit();
         }
     // s'il n'y a pas d'article
-        else{
+        else if (qty > 0){
             recordstorage = [];
             ajoutProduit();
         }      

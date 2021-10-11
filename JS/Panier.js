@@ -24,7 +24,7 @@ if(produits == null){
                document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";
                document.querySelector('#tva').textContent = "Total TVA :  " + tva.toFixed(2) + " €";
                document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
-               const totalTTC = {totalTTC : tot}
+               const totalTTC = {totalTTC : tot};
                localStorage.setItem("totalorder", JSON.stringify(totalTTC));
 };
 
@@ -60,8 +60,6 @@ del();
 
 function valider(e){
     
-        
-
         var lastName = coordonnées.elements["lastname"];
         var firstName = coordonnées.elements["firstname"];
         var adress = coordonnées.elements["adress"];
@@ -129,15 +127,9 @@ function valider(e){
                 catch (e){
                     console.log(e)
                 }
-            });
-           
-                
+            });              
         
 }};
 
 var coordonnées = document.getElementById("coordonnées");
 coordonnées.addEventListener('submit', valider);
-
-
-
-

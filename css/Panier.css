@@ -12,6 +12,7 @@ main{
     row-gap: 3rem;
     margin:50px;
     background: #f3e9f1;
+    border-radius:20px;
 }
 
 #tabTotal {

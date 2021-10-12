@@ -5,11 +5,7 @@ let total = JSON.parse(localStorage.getItem("totalorder"));
   document.querySelector("#OrderId").textContent += contenu.orderId;
  
  
-  document.addEventListener('click', function(){
-  document.querySelector('#Confirmer').onclick=finish;
+  document.querySelector('#Confirmer').addEventListener('click', function(){
+    localStorage.clear();
+    window.location.href = "index.html";
 });
-
-  function finish(){
-      localStorage.clear();
-      window.location.href = "index.html";
-};

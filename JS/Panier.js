@@ -76,7 +76,8 @@ function valider(e){
         // Au final, on empeche l'envoi du formulaire si form_OK est faux    
         if(!form_OK){
             e.preventDefault();
-            document.querySelector("#e-email").textContent = 'Ce champ doit contenir un @ et un .'; 
+            //document.querySelector("#e-email").textContent = 'Ce champ doit contenir un @ et un .'; 
+              
         } 
 
         if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){

@@ -33,3 +33,21 @@ fetch(url)
         document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
         //console.log("Le serveur local (port: 3000) n'est pas lancé");
     });
+
+    
+    let produits = JSON.parse(localStorage.getItem("produits"));
+    var totqty = 0;
+function quantite(){
+    if (produits == "" || produits == undefined){
+        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
+    }
+    else{
+    for(k = 0;k < produits.length; k++){
+    totqty += Number(produits[k].qty);
+        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
+    
+}};
+console.log(totqty)
+};
+
+quantite();

@@ -43,3 +43,7 @@ fieldset {
 }
 
 
+.btn_moin, .btn_plus{
+    padding: 0px 2px 0px 2px;
+    margin: 5px;
+}

@@ -51,9 +51,9 @@ function envoyer(){
             _id: `${donnee._id}`,
             name: `${donnee.name}`,
             colors: `${col}`,
-            price: `${price}`,
-            qty: `${qty}`,
-            pricetotal: `${price}`*`${qty}`,
+            price: Number(`${price}`),
+            qty: Number(`${qty}`),
+            pricetotal: Number(`${price}`*`${qty}`),
         };
         
     // Ajout dans le LocalStorage    
@@ -61,6 +61,8 @@ function envoyer(){
         const ajoutProduit = () => {
             recordstorage.push(formulaireProduit);
             localStorage.setItem("produits", JSON.stringify(recordstorage));
+            alert("L'article ce trouve maintenant dans votre panier");
+            location.reload();
         };
     // s'il y a déjà des articles
         if (recordstorage && qty > 0){
@@ -71,12 +73,31 @@ function envoyer(){
             recordstorage = [];
             ajoutProduit();
         }      
+        else if (qty <= 0){
+            
+                alert("Veuillez ajouter une quantité supérieur à 0");
+        }
 })
 };
 
 
+let produits = JSON.parse(localStorage.getItem("produits"));
 
+var totqty = 0;
+function quantite(){
+    if (produits == "" || produits == undefined){
+        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
+    }
+    else{
+    for(k = 0;k < produits.length; k++){
+    totqty += Number(produits[k].qty);
+        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
+    
+}};
+console.log(totqty)
+};
 
+quantite();
 
 
 

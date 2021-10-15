@@ -31,13 +31,10 @@ if(produits == null){
                document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
                const totalTTC = {totalTTC : tot};
                localStorage.setItem("totalorder", JSON.stringify(totalTTC));
+        };
+    };
 };
-
-};
-};
-
 affichage();
-
 
 function del(){
     let btn_suppr = document.querySelectorAll(".btn-suppr");
@@ -59,9 +56,7 @@ function del(){
         
     };
 };
-
 del();
-
 
 function plus(){
     let btn_plus = document.querySelectorAll(".btn_plus");
@@ -74,7 +69,7 @@ function plus(){
 
             prod = produits.filter((el) => el._id+el.colors+[k] == selection_id_plus);
             console.log(produits);
-
+            
             var qtyvalue = (produits[k].qty++)+1;
             
             document.querySelector(`.qty${[k]}`).innerHTML = `<span class="qty${[k]}">${qtyvalue}</span>`;
@@ -98,20 +93,14 @@ function plus(){
             localStorage["totalorder"] = JSON.stringify(totalorder);
 
              console.log(localStorage["produits"], localStorage["totalorder"])
-
-
-
-        });
-        
+        });        
     };
 };
-
 plus();
 
 
 function moin(){
     let btn_moin = document.querySelectorAll(".btn_moin");
-
     for (let k = 0; k < btn_moin.length; k++){
         btn_moin[k].addEventListener("click", (event) =>{
             event.preventDefault();
@@ -122,6 +111,8 @@ function moin(){
             console.log(produits);
 
             var qtyvalue = (produits[k].qty--)-1;
+
+            if (produits[k].qty > 0){
             document.querySelector(`.qty${[k]}`).innerHTML = `<span class="qty${[k]}">${qtyvalue}</span>`;
             document.querySelector(`.pricetotal${[k]}`).innerHTML = `<td class="pricetotal${[k]}">${produits[k].qty*produits[k].price} €</td>`;
             tot -= produits[k].price;
@@ -141,15 +132,17 @@ function moin(){
             totalorder.totalTTC = tot;
             localStorage["totalorder"] = JSON.stringify(totalorder);
 
-             console.log(localStorage["produits"], localStorage["totalorder"])
-        });
-        
+             console.log(localStorage["produits"], localStorage["totalorder"]);
+            }else{
+                produits = produits.filter((el) => el._id+el.colors+[k] !== selection_id_moin);   
+                console.log(produits);
+                localStorage.setItem("produits", JSON.stringify(produits));
+                window.location.href = "panier.html";
+            }
+        });  
     };
 };
-
 moin();
-
-
 
 function valider(e){
     
@@ -237,9 +230,7 @@ function quantite(){
     for(k = 0;k < produits.length; k++){
     totqty += Number(produits[k].qty);
         document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
-    
-}};
-console.log(totqty)
+        };
+    };
 };
-
 quantite();

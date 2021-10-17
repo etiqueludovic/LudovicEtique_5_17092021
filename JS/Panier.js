@@ -58,9 +58,8 @@ function del(){
 };
 del();
 
+let btn_plus = document.querySelectorAll(".btn_plus");
 function plus(){
-    let btn_plus = document.querySelectorAll(".btn_plus");
-
     for (let k = 0; k < btn_plus.length; k++){
         btn_plus[k].addEventListener("click", (event) =>{
             event.preventDefault();
@@ -76,14 +75,13 @@ function plus(){
             document.querySelector(`.pricetotal${[k]}`).innerHTML = `<td class="pricetotal${[k]}">${qtyvalue*produits[k].price} €</td>`;
             tot += produits[k].price;
             pricetot += tot;
-            console.log("price tot")
-            console.log(pricetot)
+
             var totalHT = (tot-(tot*(20/100)));
             var tva = (tot-totalHT);
             document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";
             document.querySelector('#tva').textContent = "Total TVA :  " + tva.toFixed(2) + " €"; 
             document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
-            document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${produits[k].qty}</span>`;
+            document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${qtyvalue}</span>`;
 
             produits.qty = qtyvalue; //Modifie la valeur
             produits[k].pricetotal = produits[k].price*qtyvalue;
@@ -91,16 +89,13 @@ function plus(){
 
             totalorder.totalTTC = tot;
             localStorage["totalorder"] = JSON.stringify(totalorder);
-
-             console.log(localStorage["produits"], localStorage["totalorder"])
         });        
     };
 };
 plus();
 
-
+let btn_moin = document.querySelectorAll(".btn_moin");
 function moin(){
-    let btn_moin = document.querySelectorAll(".btn_moin");
     for (let k = 0; k < btn_moin.length; k++){
         btn_moin[k].addEventListener("click", (event) =>{
             event.preventDefault();
@@ -111,7 +106,6 @@ function moin(){
             console.log(produits);
 
             var qtyvalue = (produits[k].qty--)-1;
-
             if (produits[k].qty > 0){
             document.querySelector(`.qty${[k]}`).innerHTML = `<span class="qty${[k]}">${qtyvalue}</span>`;
             document.querySelector(`.pricetotal${[k]}`).innerHTML = `<td class="pricetotal${[k]}">${produits[k].qty*produits[k].price} €</td>`;
@@ -120,10 +114,11 @@ function moin(){
             console.log(tot)
             var totalHT = (tot-(tot*(20/100)));
             var tva = (tot-totalHT);
+             
             document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";
             document.querySelector('#tva').textContent = "Total TVA :  " + tva.toFixed(2) + " €"; 
             document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
-            document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${produits[k].qty}</span>`;
+            document.querySelector("#qty").textContent = parseInt(totqtypanier);
 
             produits.qty = qtyvalue; //Modifie la valeur
             produits[k].pricetotal = produits[k].price*qtyvalue;
@@ -135,7 +130,7 @@ function moin(){
              console.log(localStorage["produits"], localStorage["totalorder"]);
             }else{
                 produits = produits.filter((el) => el._id+el.colors+[k] !== selection_id_moin);   
-                console.log(produits);
+                //console.log(produits);
                 localStorage.setItem("produits", JSON.stringify(produits));
                 window.location.href = "panier.html";
             }
@@ -205,9 +200,9 @@ function valider(e){
 
             EnvoiPost.then(async (response) =>{
                 try{
-                    console.log(response)
+                   console.log(response)
                     const contenu = await response.json()
-                    console.log(contenu)
+                   console.log(contenu)
                     localStorage.setItem("contenu", JSON.stringify(contenu));
                     document.location.href = "Confirmation.html";
                 }
@@ -228,8 +223,20 @@ function quantite(){
     }
     else{
     for(k = 0;k < produits.length; k++){
-    totqty += Number(produits[k].qty);
-        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
+    totqty += produits[k].qty;
+    document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`
+   // console.log("ici mon total qty")
+   // console.log(totqty)
+   btn_plus[k].addEventListener("click", (event) =>{ 
+    document.querySelector("#qty").textContent = totqty+1;
+    window.location.href = "panier.html";
+    alert("clique + panier")
+   });
+   btn_moin[k].addEventListener("click", (event) =>{ 
+    document.querySelector("#qty").textContent = totqty-1;
+    window.location.href = "panier.html";
+    alert("clique - panier")
+   });
         };
     };
 };

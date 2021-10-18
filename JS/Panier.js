@@ -224,18 +224,14 @@ function quantite(){
     else{
     for(k = 0;k < produits.length; k++){
     totqty += produits[k].qty;
-    document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`
+    document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
    // console.log("ici mon total qty")
    // console.log(totqty)
    btn_plus[k].addEventListener("click", (event) =>{ 
-    document.querySelector("#qty").textContent = totqty+1;
-    window.location.href = "panier.html";
-    alert("clique + panier")
+    document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${(totqty++)+1}</span>`;
    });
    btn_moin[k].addEventListener("click", (event) =>{ 
-    document.querySelector("#qty").textContent = totqty-1;
-    window.location.href = "panier.html";
-    alert("clique - panier")
+    document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${(totqty--)-1}</span>`;
    });
         };
     };

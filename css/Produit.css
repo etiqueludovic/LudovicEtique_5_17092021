@@ -43,3 +43,9 @@ img {
     grid-area: qty;
     text-align: center;
 }
+
+#envoyer, #retour{
+    margin:10px;
+    padding:5px;
+    border-radius:20px;
+}

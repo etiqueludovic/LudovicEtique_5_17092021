@@ -3,4 +3,12 @@ main{
     background: #f3e9f1;
     display: flex;
     justify-content: center;
+    text-align: center;
   }
+
+input{
+  margin-left:35%;
+  border-radius: 20px;
+  height:30px;
+  width:30%;
+}

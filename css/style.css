@@ -45,11 +45,12 @@
 
 *{
     margin:0;
-    padding:0;
+    padding:0; 
 }
 
 html{
     text-align:center;
+    font-family: cursive;
 }
 
 header{
@@ -146,3 +147,4 @@ footer ul{
     border-radius:50px;
     padding:5px 10px 5px 10px;
   }
+

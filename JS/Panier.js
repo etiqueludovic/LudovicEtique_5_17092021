@@ -84,10 +84,10 @@ function plus(){
             document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${qtyvalue}</span>`;
 
             produits.qty = qtyvalue; //Modifie la valeur
-            produits[k].pricetotal = produits[k].price*qtyvalue;
-            localStorage["produits"] = JSON.stringify(produits);  //store it again.
+            produits[k].pricetotal = produits[k].price*qtyvalue;//Modifie la valeur
+            localStorage["produits"] = JSON.stringify(produits);
 
-            totalorder.totalTTC = tot;
+            totalorder.totalTTC = tot;//Modifie la valeur
             localStorage["totalorder"] = JSON.stringify(totalorder);
         });        
     };
@@ -121,10 +121,10 @@ function moin(){
             document.querySelector("#qty").textContent = parseInt(totqtypanier);
 
             produits.qty = qtyvalue; //Modifie la valeur
-            produits[k].pricetotal = produits[k].price*qtyvalue;
-            localStorage["produits"] = JSON.stringify(produits);  //store it again.
+            produits[k].pricetotal = produits[k].price*qtyvalue;//Modifie la valeur
+            localStorage["produits"] = JSON.stringify(produits);
 
-            totalorder.totalTTC = tot;
+            totalorder.totalTTC = tot;//Modifie la valeur
             localStorage["totalorder"] = JSON.stringify(totalorder);
 
              console.log(localStorage["produits"], localStorage["totalorder"]);
@@ -149,11 +149,28 @@ function valider(e){
         
         // le formulaire est-il OK?
         var form_OK = true;
-
-        var regex = /^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]­{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
-        if (regex.exec(email.value) == null) {
-            form_OK = false;  
+        if (lastName.value == "") {
+            form_OK = false; 
+            lastName.style.border = 'solid 3px red';
         }
+        if (firstName.value == "") {
+            form_OK = false; 
+            firstName.style.border = 'solid 3px red';
+        }
+        if (adress.value == "") {
+            form_OK = false; 
+            adress.style.border = 'solid 3px red';
+        }
+        if (city.value == "") {
+            form_OK = false; 
+            city.style.border = 'solid 3px red';
+        }
+        var regex = /^[a-z0-9]+([_|\.|-][a-z0-9]+)*@[a-z0-9]+([_|\.|-][a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
+        if (regex.exec(email.value) == null) {
+            form_OK = false; 
+            email.style.border= 'solid 3px red';
+        }
+        
         // Au final, on empeche l'envoi du formulaire si form_OK est faux    
         if(!form_OK){
             e.preventDefault();
@@ -163,7 +180,8 @@ function valider(e){
 
         if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
             form_OK = false;
-         // Sinon en si tout est bien rempli alors on envoi le formulaire   
+            document.querySelector("#erreur").textContent = "Champ saisie incorrect";
+         // Sinon si tout est bien rempli alors on envoi le formulaire   
         }else{
             e.preventDefault();
             const contact = {

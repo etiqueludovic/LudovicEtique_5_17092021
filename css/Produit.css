@@ -5,6 +5,7 @@
                 "img img"
                 "name price"
                 "couleur qty"
+                "retour envoyer"
     ;
     background: #f3e9f1;
     width:700px;
@@ -39,9 +40,33 @@ img {
     padding: 10px;
 }
 
-#Quantite{
+#quantite{
     grid-area: qty;
     text-align: center;
+}
+
+#retour{
+    grid-area: retour;
+    padding: 10px;
+}
+
+#envoyer{
+    grid-area: envoyer;
+    padding: 10px;
+}
+
+.btn_plus{
+    padding: 0px 3px 0px 3px;
+    margin: 5px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.btn_moin{
+    padding: 0px 4px 0px 4px;
+    margin: 5px;
+    border-radius:20px;
+    cursor:pointer;
 }
 
 #envoyer, #retour{

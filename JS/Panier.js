@@ -8,11 +8,13 @@ var tot = 0;
 var pricetot = 0;
 
 function affichage(){
+    //si produits n'existe pas alors message d'erreur
 if(produits == null){
     const paniervide = "Le panier est vide, veuillez ajouter des articles";
     document.querySelector("thead").innerHTML = "Le panier est vide, veuillez ajouter des articles";
     //console.log(paniervide);
 }else{
+    // sinon on déclenche récupére les informations de Produits pour les ajouter dnas un tableau
     for(i = 0;i < produits.length; i++){
         document.querySelector("#conteneur-table").innerHTML += `<tr id="${produits[i]._id+[i]}">
                    <td class="nom">${produits[i].name}</td>
@@ -34,43 +36,50 @@ if(produits == null){
         };
     };
 };
+// on déclenche la fonction affichage
 affichage();
 
 function del(){
+    // récupération du bouton déclencheur
     let btn_suppr = document.querySelectorAll(".btn-suppr");
 
     for (let l = 0; l < btn_suppr.length; l++){
+        // boucle qui récupére le bouton cliqué
         btn_suppr[l].addEventListener("click", (event) =>{
             event.preventDefault();
-
+            
             let selection_id_suppr = produits[l]._id+produits[l].colors+[l];
             console.log(selection_id_suppr);
-
+        // filtre les articles selon un ID unique
             produits = produits.filter((el) => el._id+el.colors+[l] !== selection_id_suppr);   
             console.log(produits);
-
+            // supprime les données du localStorage de la ligne cliqué
             localStorage.setItem("produits", JSON.stringify(produits));
+            // rafraichissement de la page pour faire disparaître la ligne en question
             window.location.href = "panier.html";
 
         });
         
     };
 };
+// on déclenche la fonction del
 del();
 
+// récupération du bouton plus
 let btn_plus = document.querySelectorAll(".btn_plus");
 function plus(){
     for (let k = 0; k < btn_plus.length; k++){
+        //événement su bouton plus de la ligne
         btn_plus[k].addEventListener("click", (event) =>{
             event.preventDefault();
             let selection_id_plus = produits[k]._id+produits[k].colors+[k];
             console.log(selection_id_plus);
-
+            // filtre les articles selon un ID unique
             prod = produits.filter((el) => el._id+el.colors+[k] == selection_id_plus);
             console.log(produits);
-            
+            // nous donnons une valeur par defaut à qtyvalue et on lui ajoute +1
             var qtyvalue = (produits[k].qty++)+1;
-            
+            // à chaque clique les champs de quantité et de prix totals sont modifiés 
             document.querySelector(`.qty${[k]}`).innerHTML = `<span class="qty${[k]}">${qtyvalue}</span>`;
             document.querySelector(`.pricetotal${[k]}`).innerHTML = `<td class="pricetotal${[k]}">${qtyvalue*produits[k].price} €</td>`;
             tot += produits[k].price;
@@ -85,13 +94,14 @@ function plus(){
 
             produits.qty = qtyvalue; //Modifie la valeur
             produits[k].pricetotal = produits[k].price*qtyvalue;//Modifie la valeur
-            localStorage["produits"] = JSON.stringify(produits);
+            localStorage["produits"] = JSON.stringify(produits);// envois la valeur au champ modifié
 
             totalorder.totalTTC = tot;//Modifie la valeur
-            localStorage["totalorder"] = JSON.stringify(totalorder);
+            localStorage["totalorder"] = JSON.stringify(totalorder);// envois la valeur au champ modifié
         });        
     };
 };
+// on déclenche la fonciton plus
 plus();
 
 let btn_moin = document.querySelectorAll(".btn_moin");
@@ -118,7 +128,7 @@ function moin(){
             document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";
             document.querySelector('#tva').textContent = "Total TVA :  " + tva.toFixed(2) + " €"; 
             document.querySelector('#TTC').textContent = "Total TTC :  " + tot.toFixed(2) + " €";
-            document.querySelector("#qty").textContent = parseInt(totqtypanier);
+            document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${qtyvalue}</span>`;
 
             produits.qty = qtyvalue; //Modifie la valeur
             produits[k].pricetotal = produits[k].price*qtyvalue;//Modifie la valeur
@@ -140,7 +150,7 @@ function moin(){
 moin();
 
 function valider(e){
-    
+        // valeur par defaut des champs suivant
         var lastName = coordonnées.elements["lastname"];
         var firstName = coordonnées.elements["firstname"];
         var adress = coordonnées.elements["adress"];
@@ -149,6 +159,7 @@ function valider(e){
         
         // le formulaire est-il OK?
         var form_OK = true;
+        // si formulaire vide ou champ incorrectement rempli alors bord rouge
         if (lastName.value == "") {
             form_OK = false; 
             lastName.style.border = 'solid 3px red';
@@ -165,6 +176,7 @@ function valider(e){
             form_OK = false; 
             city.style.border = 'solid 3px red';
         }
+        // expression régulière doit contenir un @ et un . après le @ sinon bord rouge
         var regex = /^[a-z0-9]+([_|\.|-][a-z0-9]+)*@[a-z0-9]+([_|\.|-][a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
         if (regex.exec(email.value) == null) {
             form_OK = false; 
@@ -177,13 +189,14 @@ function valider(e){
             //document.querySelector("#e-email").textContent = 'Ce champ doit contenir un @ et un .'; 
               
         } 
-
+        // si pas de contenu alors message d'erreur
         if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
             form_OK = false;
             document.querySelector("#erreur").textContent = "Champ saisie incorrect";
          // Sinon si tout est bien rempli alors on envoi le formulaire   
         }else{
             e.preventDefault();
+            // construction du formulaire en json
             const contact = {
                 firstName : firstName.value,
                 lastName : lastName.value,
@@ -204,10 +217,11 @@ function valider(e){
                   }
                  // console.log("aSubmit");
                  // console.log(aSubmit);
-            
+            // création de contact et products dans le localstorage
           localStorage.setItem("contact", JSON.stringify(contact));
           localStorage.setItem("products", JSON.stringify(products));
 
+        
          const EnvoiPost = fetch('http://localhost:3000/api/teddies/order', {
                 method: "POST",
                 body: JSON.stringify(aSubmit),

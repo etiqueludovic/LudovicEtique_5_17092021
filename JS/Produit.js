@@ -16,10 +16,12 @@ let totalorder = JSON.parse(localStorage.getItem("totalorder"));
 const urllocal = `http://localhost:3000/api/teddies/${_id}`;
 
 console.log("ici l'url local : "+urllocal)
+// donne une valeur par defaut
 let recordproductid = "";
 let recordcolor = "";
 let recordQty = "";
 
+// filtre les articles
 function filtre(){
     for(p = 0;p < produits.length; p++){
         let selection_id = _id+produits[p].colors;
@@ -27,14 +29,16 @@ function filtre(){
 
         prod = produits.filter((el) => el._id+el.colors == selection_id);
         console.table(prod)
-}
-}
+    }
+};
 
-// si produits existe dans le localstorage alors on récupére ces informations
+
 function record(){
+    // si produits existe dans le localstorage alors on récupére ces informations
 if(produits){
     
     for(p = 0;p < produits.length; p++){
+        // récupération de l'id et de la couleur pour avoir un ID unique
         let selection_id = _id+produits[p].colors;
         let colorsrecord = produits[p].colors;
         console.log("ici l'article en question : "+ selection_id);
@@ -47,6 +51,7 @@ if(produits){
         console.log("ici le produit filtré"+recordproductid+" : "+recordcolor+" : "+recordQty);
     }
 }else{
+    // si produits n'existe pas alors valeur par defaut vide
     recordproductid = "";
     recordcolor = "";
     recordQty =  0;  
@@ -54,8 +59,8 @@ if(produits){
 };
 record();
 // récupération de la valeur du champ quantité
-// si le tableau produits existe alors renvois la valeur    
 function qtyfield(){
+    // si le tableau produits existe alors renvois la valeur  
     if (produits){
     for(p = 0;p < produits.length; p++){
         let selection_id = _id;
@@ -70,6 +75,7 @@ function qtyfield(){
             return recordQty;
             }
     }
+    //sinon valeur de la quantite à 0
     }else{
         console.log("Oups pas de produit dans la panier : "+recordQty)
         recordQty = 0;
@@ -77,7 +83,7 @@ function qtyfield(){
         }
         
 }
-
+// déclenche la fonction qtyfield
 qtyfield();     
 
 let qtyvalue = qtyfield();
@@ -111,13 +117,10 @@ fetch(urllocal)
 };
 recup();
 
-
-//----------récupération des valeurs de la commande------------//
-
-
+// valeur par defaut de recordprice
 var recordprice = 0;
 
-// Fonction du bouton envoyé
+// Fonction du bouton envoyer
 function envoyer(){
     fetch(urllocal)
         .then((response) => response.json())
@@ -126,6 +129,7 @@ function envoyer(){
         const price = `${(donnee.price/100).toFixed(2)}`;
         const col = document.querySelector("#couleur").value;
         const qty = qtyvalue;
+        // construction json du formulaire produits
         let formulaireProduit = {
             _id: `${donnee._id}`,
             name: `${donnee.name}`,
@@ -137,6 +141,7 @@ function envoyer(){
        console.log("ici ma quantite quand je clique sur envoyé : " + qty)
     // Ajout dans le LocalStorage    
         let recordstorage = JSON.parse(localStorage.getItem("produits"));
+        // constante incluant plusieurs propriétés
         const ajoutProduit = () => {
             recordstorage.push(formulaireProduit);
             localStorage.setItem("produits", JSON.stringify(recordstorage));
@@ -173,11 +178,15 @@ function envoyer(){
         })
 };
 
+// variable avec comme valeur par defaut 0
 var totqty = 0;
+// fonction quantite qui sert à indiquer la quantité total du panier
 function quantite(){
+    // si pas de tableau produits dans le localstorage on indique la valeur par defaut 0
     if (produits == "" || produits == undefined){
         document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
     }
+    // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
     else{
     for(k = 0;k < produits.length; k++){
     totqty += Number(produits[k].qty);
@@ -186,10 +195,12 @@ function quantite(){
 }};
 console.log(totqty)
 };
+// on lance la fonction quantite
 quantite();
 
+// si le bouton plus est cliqué on déclenche la fonction
 function plus(){ 
-    // si le bouton plus est cliqué on déclenche la fonction
+    // si produits existe alors on déclenche ses propriétés
     if (produits){
     for(p = 0;p < produits.length; p++){
         let colorsrecord = produits[p].colors;
@@ -206,11 +217,12 @@ function plus(){
                 else{
                         document.querySelector(`.qty`).textContent = (qtyvalue++)+1;
                         break
-                    }   }
+                    }   
                 }
-            else{
-                console.log("plus appuyé : "+qtyvalue)
-                document.querySelector(`.qty`).textContent = (qtyvalue++);
+            }
+                else{
+                        console.log("plus appuyé : "+qtyvalue)
+                        document.querySelector(`.qty`).textContent = (qtyvalue++);
             
     };
 };
@@ -233,12 +245,12 @@ function moin(){
                 }
             }
         }   
-            else if (qtyrecord > 0){
-                document.querySelector(`.qty`).textContent = (qtyrecord--)-1;
-            }else if (qtyrecord <= 0){
-                document.querySelector(`.qty`).textContent = 0;
-                alert("Attention quantité négative interdite")
-            }
+                else if (qtyrecord > 0){
+                    document.querySelector(`.qty`).textContent = (qtyrecord--)-1;
+                }else if (qtyrecord <= 0){
+                    document.querySelector(`.qty`).textContent = 0;
+                    alert("Attention quantité négative interdite")
+                }
             
     };
 

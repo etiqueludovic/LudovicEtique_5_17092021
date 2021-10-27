@@ -232,22 +232,22 @@ function moin(){
     if (produits){
     for(p = 0;p < produits.length; p++){
         let colorsrecord = produits[p].colors;
-        let qtyrecord = produits[p].qty;
+        let qtyrecord = produits[p].qty-1;
         price = produits[p].price;
                 if (produits && _id && colorsrecord == document.querySelector("#couleur").value){
-                    document.querySelector(`.qty`).textContent = (qtyrecord--)-1; 
-                        produits[p].qty = qtyrecord--; //Modifie la valeur
-                        produits[p].pricetotal = price*qtyrecord--;
+                    document.querySelector(`.qty`).textContent = (qtyrecord); 
+                        produits[p].qty = qtyrecord; //Modifie la valeur
+                        produits[p].pricetotal = price*qtyrecord;
                         localStorage["produits"] = JSON.stringify(produits);
                 }else{
-                    document.querySelector(`.qty`).textContent = (qtyrecord--)-1;
+                    document.querySelector(`.qty`).textContent = (qtyvalue--)-1;
                     break
                 }
             }
         }   
                 else if (qtyrecord > 0){
-                    document.querySelector(`.qty`).textContent = (qtyrecord--)-1;
-                }else if (qtyrecord <= 0){
+                    document.querySelector(`.qty`).textContent = (qtyvalue--)-1;
+                }else if (qtyrecord < 0){
                     document.querySelector(`.qty`).textContent = 0;
                     alert("Attention quantité négative interdite")
                 }

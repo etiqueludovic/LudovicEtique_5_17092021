@@ -19,18 +19,8 @@ console.log("ici l'url local : "+urllocal)
 // donne une valeur par defaut
 let recordproductid = "";
 let recordcolor = "";
-let recordQty = "";
-
-// filtre les articles
-function filtre(){
-    for(p = 0;p < produits.length; p++){
-        let selection_id = _id+produits[p].colors;
-        console.log("ici l'article en question : "+ selection_id);
-
-        prod = produits.filter((el) => el._id+el.colors == selection_id);
-        console.table(prod)
-    }
-};
+let recordQty = 0;
+let qtyvalue = 0;
 
 
 function record(){
@@ -58,36 +48,7 @@ if(produits){
 };
 };
 record();
-// récupération de la valeur du champ quantité
-function qtyfield(){
-    // si le tableau produits existe alors renvois la valeur  
-    if (produits){
-    for(p = 0;p < produits.length; p++){
-        let selection_id = _id;
-        let colorsrecord = produits[p].colors;
-    if (produits && _id && colorsrecord == document.querySelector("#couleur").value){   
-        console.log("youpi il y a des articles dans le panier : " + recordproductid +" : "+ _id)
-        console.log(colorsrecord+" : "+document.querySelector("#couleur").value)
-        return recordQty;
-// sinon si pas de produits avec cette ID alors renvois 0
-        }else{
-            recordQty = 0;
-            return recordQty;
-            }
-    }
-    //sinon valeur de la quantite à 0
-    }else{
-        console.log("Oups pas de produit dans la panier : "+recordQty)
-        recordQty = 0;
-        return recordQty;
-        }
-        
-}
-// déclenche la fonction qtyfield
-qtyfield();     
 
-let qtyvalue = qtyfield();
-console.log("ici le qtyvalue : "+qtyvalue)
 // récupération des données du produit
 function recup(){
 fetch(urllocal)
@@ -102,6 +63,7 @@ fetch(urllocal)
                 document.querySelector("#name").textContent = `${donnee.name}`;
                 document.querySelector("#price").textContent =  `${price} €`;
                 document.querySelector('.qty').innerHTML = `<span class="qty">${0}</span>`;
+                document.querySelector("#retourpanier").style = 'display:none';
                 // boucle pour récupérer les couleurs de l'élément
                 for(let col of donnee.colors){
                 document.querySelector("#couleur").innerHTML +=  `<option value="${col}">${col}</option>`;
@@ -199,59 +161,16 @@ console.log(totqty)
 quantite();
 
 // si le bouton plus est cliqué on déclenche la fonction
-function plus(){ 
-    // si produits existe alors on déclenche ses propriétés
-    if (produits){
-    for(p = 0;p < produits.length; p++){
-        let colorsrecord = produits[p].colors;
-        let qtyrecord = produits[p].qty;
-        let price = produits[p].price;
-                if (produits && _id && colorsrecord == document.querySelector("#couleur").value){
-                        document.querySelector(`.qty`).textContent = (qtyrecord++)+1; 
-                        produits[p].qty = qtyrecord++; //Modifie la valeur
-                        produits[p].pricetotal = price*qtyrecord++;
-                        localStorage["produits"] = JSON.stringify(produits)
-                    }
-                    
-                    
-                else{
-                        document.querySelector(`.qty`).textContent = (qtyvalue++)+1;
-                        break
-                    }   
-                }
-            }
-                else{
-                        console.log("plus appuyé : "+qtyvalue)
-                        document.querySelector(`.qty`).textContent = (qtyvalue++);
-            
+function plus(){
+    // on ajoute la quantité à chaque clique et on commence par +1 au premier clique au lieu de 0
+        var qtydefaut = qtyvalue++; 
+        document.querySelector(`.qty`).textContent = (qtydefaut++)+1;      
     };
-};
            
 function moin(){ 
-    // si le bouton plus est cliqué on déclenche la fonction
-    if (produits){
-    for(p = 0;p < produits.length; p++){
-        let colorsrecord = produits[p].colors;
-        let qtyrecord = produits[p].qty-1;
-        price = produits[p].price;
-                if (produits && _id && colorsrecord == document.querySelector("#couleur").value){
-                    document.querySelector(`.qty`).textContent = (qtyrecord); 
-                        produits[p].qty = qtyrecord; //Modifie la valeur
-                        produits[p].pricetotal = price*qtyrecord;
-                        localStorage["produits"] = JSON.stringify(produits);
-                }else{
-                    document.querySelector(`.qty`).textContent = (qtyvalue--)-1;
-                    break
-                }
-            }
-        }   
-                else if (qtyrecord > 0){
-                    document.querySelector(`.qty`).textContent = (qtyvalue--)-1;
-                }else if (qtyrecord < 0){
-                    document.querySelector(`.qty`).textContent = 0;
-                    alert("Attention quantité négative interdite")
-                }
-            
+    // on ajoute la quantité à chaque clique et on commence par -1 au premier clique au lieu de 0
+        var qtydefaut = qtyvalue--;
+        document.querySelector(`.qty`).textContent = (qtydefaut--)-1;          
     };
 
 function couleur(){
@@ -260,19 +179,28 @@ function couleur(){
         let selection_id = _id;
         let idrecord = produits[p]._id;
         let colorsrecord = produits[p].colors;
-        let qtyrecord = produits[p].qty;
    if (document.querySelector("#couleur").value != "starter" && _id == idrecord && colorsrecord == document.querySelector("#couleur").value){
     document.querySelector("#couleur").style.borderColor = "green"; 
-    document.querySelector('.qty').innerHTML = `<span class="qty">${qtyrecord}</span>`;
+    document.querySelector('.qty').innerHTML = `<span class="qty">Vous avez déjà cette article dans le panier</span>`;
+    document.querySelector("#retourpanier").style = 'display:visible';
+    document.querySelector("#envoyer").style = 'display:none';
+    document.querySelector(".btn_plus").style = 'display:none';
+    document.querySelector(".btn_moin").style = 'display:none';
     console.log("meme couleur, meme ID : " + selection_id + ", "+colorsrecord)
     break;
         }
    else if(document.querySelector("#couleur").value != "starter"){
     document.querySelector("#couleur").style.borderColor = "green";
     document.querySelector('.qty').innerHTML = `<span class="qty">${qtyvalue}</span>`;
+    document.querySelector("#retourpanier").style = 'display:none';
+    document.querySelector("#envoyer").style = 'display:visible';
+    document.querySelector(".btn_plus").style = 'display:visible';
+    document.querySelector(".btn_moin").style = 'display:visible';
     console.log("différent de starter : " + selection_id + ", "+colorsrecord)
+
         }
-    }}
+    }
+}
     else{
            { if(document.querySelector("#couleur").value != "starter")
             {

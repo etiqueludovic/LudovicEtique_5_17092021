@@ -1,8 +1,6 @@
 // récupération du localStorage
 let produits = JSON.parse(localStorage.getItem("produits"));
 let totalorder = JSON.parse(localStorage.getItem("totalorder"));
-console.log("résultat produits")
-console.log(produits)
 
 var tot = 0;
 var pricetot = 0;
@@ -82,9 +80,8 @@ function plus(){
             // à chaque clique les champs de quantité et de prix totals sont modifiés 
             document.querySelector(`.qty${[k]}`).innerHTML = `<span class="qty${[k]}">${qtyvalue}</span>`;
             document.querySelector(`.pricetotal${[k]}`).innerHTML = `<td class="pricetotal${[k]}">${qtyvalue*produits[k].price} €</td>`;
+            // ici le total des prix
             tot += produits[k].price;
-            pricetot += tot;
-
             var totalHT = (tot-(tot*(20/100)));
             var tva = (tot-totalHT);
             document.querySelector('#total').textContent = "Total HT :  " + totalHT.toFixed(2) + " €";

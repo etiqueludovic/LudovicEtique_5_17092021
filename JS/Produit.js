@@ -19,7 +19,6 @@ console.log("ici l'url local : "+urllocal)
 // donne une valeur par defaut
 let recordproductid = "";
 let recordcolor = "";
-let recordQty = 0;
 let qtyvalue = 0;
 
 function record(){
@@ -27,17 +26,13 @@ function record(){
 if(produits){ 
     for(p = 0;p < produits.length; p++){
         // récupération de l'id et de la couleur pour avoir un ID unique
-        let selection_id = _id+produits[p].colors;
-        prod = produits.filter((el) => el._id+el.colors == selection_id);
         recordproductid = produits[p]._id;
         recordcolor = produits[p].colors;
-        recordQty = produits[p].qty;
     }
     }else{
     // si produits n'existe pas alors valeur par defaut vide
     recordproductid = "";
-    recordcolor = "";
-    recordQty =  0;  
+    recordcolor = ""; 
     };
 };
 record();

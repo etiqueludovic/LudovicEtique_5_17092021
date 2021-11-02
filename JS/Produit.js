@@ -22,30 +22,23 @@ let recordcolor = "";
 let recordQty = 0;
 let qtyvalue = 0;
 
-
 function record(){
     // si produits existe dans le localstorage alors on récupére ces informations
-if(produits){
-    
+if(produits){ 
     for(p = 0;p < produits.length; p++){
         // récupération de l'id et de la couleur pour avoir un ID unique
         let selection_id = _id+produits[p].colors;
-        let colorsrecord = produits[p].colors;
-        console.log("ici l'article en question : "+ selection_id);
-
         prod = produits.filter((el) => el._id+el.colors == selection_id);
         recordproductid = produits[p]._id;
         recordcolor = produits[p].colors;
         recordQty = produits[p].qty;
-
-        console.log("ici le produit filtré"+recordproductid+" : "+recordcolor+" : "+recordQty);
     }
-}else{
+    }else{
     // si produits n'existe pas alors valeur par defaut vide
     recordproductid = "";
     recordcolor = "";
     recordQty =  0;  
-};
+    };
 };
 record();
 
@@ -100,8 +93,7 @@ function envoyer(){
             qty: Number(`${qty}`),
             pricetotal: Number(`${price}`*`${qty}`),
         };
-       console.log("ici ma quantite quand je clique sur envoyé : " + qty)
-    // Ajout dans le LocalStorage    
+        // Ajout dans le LocalStorage    
         let recordstorage = JSON.parse(localStorage.getItem("produits"));
         // constante incluant plusieurs propriétés
         const ajoutProduit = () => {
@@ -111,28 +103,31 @@ function envoyer(){
             location.reload();
         };
         if(recordstorage){
+            // si l'ID et la couleur existe déjà alors un message l'indique à l'utilisateur
             if (recordproductid == donnee._id && recordcolor == col && qty > 0 && col != "starter"){
-            alert("vous avez déjà cette article dans le panier")
-           alert('1')
+                alert("vous avez déjà cette article dans le panier")
             }
+            // sinon si l'ID et la couleur ainsi que la quantité est supérieur à 0 alors on ajoute l'article au tabeau Produits
             else if(recordproductid != donnee._id && recordcolor != col && qty > 0 && col != "starter"|| recordcolor != col && qty > 0 && col != "starter"){
-               alert('2')
-            ajoutProduit();
+                ajoutProduit();
             }
+            //sinon si couleur egale au seclect par defaut, rien ne ce passe et border color est en rouge
             else if(col == "starter"){
                 document.querySelector("#couleur").style.borderColor = 'red';
             }
+             //si quantité inférieur ou égale à 0 alors on envoi un message d'erreur
             else if(qty <= 0)
             {          
-            alert("1 - Veuillez ajouter une quantité supérieur à 0");
+                alert("Veuillez ajouter une quantité supérieur à 0");
             }
             }
             else{
-            if (qty <= 0 || qty == ""){          
-            alert("2 - Veuillez ajouter une quantité supérieur à 0");
+                //si quantité inférieur ou égale à 0 alors on envoi un message d'erreur
+            if (qty <= 0){          
+                alert("Veuillez ajouter une quantité supérieur à 0");
             }
+            // sinon si quantité OK et couleur sélectionné on crée un nouveau tableau Produits
             else if (qty > 0 && col != "starter"){
-                alert('3')
                 recordstorage = [];
                 ajoutProduit();
             }}
@@ -151,11 +146,11 @@ function quantite(){
     // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
     else{
     for(k = 0;k < produits.length; k++){
-    totqty += Number(produits[k].qty);
+        totqty += Number(produits[k].qty);
         document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
     
-}};
-console.log(totqty)
+        }   
+    };
 };
 // on lance la fonction quantite
 quantite();
@@ -173,44 +168,50 @@ function moin(){
         document.querySelector(`.qty`).textContent = (qtydefaut--)-1;          
     };
 
+    // quand la couleur est sélectionné, la fonction ce déclenche
 function couleur(){
     if (produits){
+        // Grâce à cette boucle nous prenons le bon produit sélectionné (id + couleur)
     for(p = 0;p < produits.length; p++){
         let selection_id = _id;
         let idrecord = produits[p]._id;
         let colorsrecord = produits[p].colors;
    if (document.querySelector("#couleur").value != "starter" && _id == idrecord && colorsrecord == document.querySelector("#couleur").value){
+       // nous modifions les champs (bordure dela case en vert si l'article et ça couleur existe et son sélectionné)
     document.querySelector("#couleur").style.borderColor = "green"; 
+        // nous indiquons au client que l'article existe déjà dnas son panier pour éviter les doublons
     document.querySelector('.qty').innerHTML = `<span class="qty">Vous avez déjà cette article dans le panier</span>`;
+        // si artciel existe déjà nous faisons apparaître un bouton retour panier et les autres boutons disparaîssent
     document.querySelector("#retourpanier").style = 'display:visible';
     document.querySelector("#envoyer").style = 'display:none';
     document.querySelector(".btn_plus").style = 'display:none';
     document.querySelector(".btn_moin").style = 'display:none';
-    console.log("meme couleur, meme ID : " + selection_id + ", "+colorsrecord)
     break;
         }
+        // nous vérifions si la sélection n'est pas sur Starter
    else if(document.querySelector("#couleur").value != "starter"){
+       // si cela est une couleur alors case entourer de vert et boutons hors retour panier reste visible.
     document.querySelector("#couleur").style.borderColor = "green";
     document.querySelector('.qty').innerHTML = `<span class="qty">${qtyvalue}</span>`;
     document.querySelector("#retourpanier").style = 'display:none';
     document.querySelector("#envoyer").style = 'display:visible';
     document.querySelector(".btn_plus").style = 'display:visible';
     document.querySelector(".btn_moin").style = 'display:visible';
-    console.log("différent de starter : " + selection_id + ", "+colorsrecord)
-
         }
     }
 }
-    else{
-           { if(document.querySelector("#couleur").value != "starter")
+    // sinon si article aucun article
+    else{   
+        // si couleur sélectionner bord du selecteur vert
+        if(document.querySelector("#couleur").value != "starter")
             {
             document.querySelector("#couleur").style.borderColor = "green"
-            }
-            
+        }
+        //sinon couleur bordure rouge
         else{
             document.querySelector("#couleur").style.borderColor = "red"; 
             document.querySelector('.qty').innerHTML = `<span class="qty">${0}</span>`;
         }
-    }
-};
+        
+    };
 }

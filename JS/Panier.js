@@ -20,7 +20,7 @@ if(produits == null){
                    <td><button class="btn_moin">-</button><span class="qty${[i]}">${produits[i].qty}</span><button class="btn_plus">+</button></td>
                    <td class="price">${produits[i].price} €</td>
                    <td class="pricetotal${[i]}">${produits[i].pricetotal} €</td>
-                   <td class="delete"><button class="btn-suppr"><i class="fa fa-trash" aria-hidden="true"></i>
+                   <td class="delete"><button class="btn-suppr" value=""><i class="fa fa-trash" aria-hidden="true"></i>
                    </button></td>
                </tr>`;
                tot += produits[i].pricetotal;

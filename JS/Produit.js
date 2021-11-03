@@ -103,7 +103,7 @@ function envoyer(){
                 alert("vous avez déjà cette article dans le panier")
             }
             // sinon si l'ID et la couleur ainsi que la quantité est supérieur à 0 alors on ajoute l'article au tabeau Produits
-            else if(recordproductid != donnee._id && recordcolor != col && qty > 0 && col != "starter"|| recordcolor != col && qty > 0 && col != "starter"){
+            else if(recordproductid != donnee._id && recordcolor != col && qty > 0 && col != "starter"|| qty > 0 && col != "starter"){
                 ajoutProduit();
             }
             //sinon si couleur egale au seclect par defaut, rien ne ce passe et border color est en rouge

@@ -1,9 +1,4 @@
-// Création d'une nouvelle class
-class Article{
-    constructor(jsondonnee){
-        jsondonnee && Object.assign(this, jsondonnee)
-    }   
-}
+import {Article} from './General.js';
 
 // récupération de de l'id du produit 
 let params = new URL(document.location).searchParams;
@@ -24,7 +19,7 @@ let qtyvalue = 0;
 function record(){
     // si produits existe dans le localstorage alors on récupére ces informations
 if(produits){ 
-    for(p = 0;p < produits.length; p++){
+    for(let p = 0;p < produits.length; p++){
         // récupération de l'id et de la couleur pour avoir un ID unique
         recordproductid = produits[p]._id;
         recordcolor = produits[p].colors;
@@ -140,7 +135,7 @@ function quantite(){
     }
     // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
     else{
-    for(k = 0;k < produits.length; k++){
+    for(let k = 0;k < produits.length; k++){
         totqty += Number(produits[k].qty);
         document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
     
@@ -167,10 +162,9 @@ function moin(){
 function couleur(){
     if (produits){
         // Grâce à cette boucle nous prenons le bon produit sélectionné (id + couleur)
-    for(p = 0;p < produits.length; p++){
-        let selection_id = _id;
-        let idrecord = produits[p]._id;
-        let colorsrecord = produits[p].colors;
+    for(let a = 0;a < produits.length; a++){
+        let idrecord = produits[a]._id;
+        let colorsrecord = produits[a].colors;
    if (document.querySelector("#couleur").value != "starter" && _id == idrecord && colorsrecord == document.querySelector("#couleur").value){
        // nous modifions les champs (bordure dela case en vert si l'article et ça couleur existe et son sélectionné)
     document.querySelector("#couleur").style.borderColor = "green"; 

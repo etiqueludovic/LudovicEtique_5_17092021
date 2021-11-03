@@ -19,7 +19,7 @@ fetch(url)
                         const price = `${(produit.price/100).toFixed(2)}`;
                         // Remplace le corp de page par le suivant : (Ajout de chaque vignette par ID produit)
                         document.querySelector(".produit").innerHTML += `<a href="Produit.html?id=${produit._id}" class="vignette">
-                                                                        <img src="${produit.imageUrl}" />
+                                                                        <img alt="Image ${produit.name}" src="${produit.imageUrl}" />
                                                                         <div class="desc">
                                                                         <div class="name">${produit.name}</div>
                                                                         <div class="price">${price} €</div>

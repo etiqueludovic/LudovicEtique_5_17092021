@@ -47,7 +47,7 @@ fetch(urllocal)
                 // passage de centime à euro
                 const price = `${(donnee.price/100).toFixed(2)}`;
                 // modification des données suivant les élément sélectionné
-                document.querySelector("#container").innerHTML += `<img src="${donnee.imageUrl}"/>`;
+                document.querySelector("#container").innerHTML += `<img alt="Image ${donnee.name}" src="${donnee.imageUrl}"/>`;
                 document.querySelector("#name").textContent = `${donnee.name}`;
                 document.querySelector("#price").textContent =  `${price} €`;
                 document.querySelector('.qty').innerHTML = `<span class="qty">${0}</span>`;

@@ -1,10 +1,4 @@
-// création d'une classe
-class Produits{
-        constructor(jsonProduits){
-                jsonProduits && Object.assign(this, jsonProduits)
-        }   
-}
-
+import {Article} from './General.js';
 
 // récupération du Back-end
 let url = 'http://localhost:3000/api/teddies';
@@ -14,7 +8,7 @@ fetch(url)
     .then((response) => response.json())
     .then((jsonListProduits) => {
                 for(let jsonProduits of jsonListProduits){
-                        let produit = new Produits(jsonProduits);
+                        let produit = new Article(jsonProduits);
                         // on fixe le prix en euro et on le fixe à 2 chiffres en décimale
                         const price = `${(produit.price/100).toFixed(2)}`;
                         // Remplace le corp de page par le suivant : (Ajout de chaque vignette par ID produit)
@@ -47,7 +41,7 @@ function quantite(){
     // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
     else{
     
-    for(k = 0;k < produits.length; k++){
+    for(let k = 0;k < produits.length; k++){
         // boucle qui récupére chaque quantité pour les additionner
     totqty += Number(produits[k].qty);
         // remplace la valeur HTML par celle-ci

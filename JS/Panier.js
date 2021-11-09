@@ -148,46 +148,42 @@ moin();
 
 function valider(e){
         // valeur par defaut des champs suivant
-        var lastName = coordonnées.elements["lastname"];
-        var firstName = coordonnées.elements["firstname"];
-        var adress = coordonnées.elements["adress"];
-        var city = coordonnées.elements["city"];
-        var email = coordonnées.elements["email"];
-        
+        var lastName = coordonnées.elements["e-lastname"];
+        var firstName = coordonnées.elements["e-firstname"];
+        var adress = coordonnées.elements["e-adress"];
+        var city = coordonnées.elements["e-city"];
+        var email = coordonnées.elements["e-email"];
+        // expression régulière doit contenir un @ et un . après le @ sinon bord rouge
+        var regex = /^[a-z0-9]+([_|\.|-][a-z0-9]+)*@[a-z0-9]+([_|\.|-][a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
         // le formulaire est-il OK?
         var form_OK = true;
         // si formulaire vide ou champ incorrectement rempli alors bord rouge
         if (lastName.value == "") {
-            form_OK = false; 
+            form_OK = false;
             lastName.style.border = 'solid 3px red';
-        }
+        }else{lastName.style.border = 'solid 3px green';}
         if (firstName.value == "") {
-            form_OK = false; 
+            form_OK = false;
             firstName.style.border = 'solid 3px red';
-        }
+        }else{firstName.style.border = 'solid 3px green';}
         if (adress.value == "") {
-            form_OK = false; 
+            form_OK = false;
             adress.style.border = 'solid 3px red';
-        }
+        }else{adress.style.border = 'solid 3px green';}
         if (city.value == "") {
-            form_OK = false; 
+            form_OK = false;
             city.style.border = 'solid 3px red';
-        }
-        // expression régulière doit contenir un @ et un . après le @ sinon bord rouge
-        var regex = /^[a-z0-9]+([_|\.|-][a-z0-9]+)*@[a-z0-9]+([_|\.|-][a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
+        }else{city.style.border = 'solid 3px green';}
         if (regex.exec(email.value) == null) {
-            form_OK = false; 
+            form_OK = false;
             email.style.border= 'solid 3px red';
-        }
-        
+        }else{email.style.border = 'solid 3px green';}
         // Au final, on empeche l'envoi du formulaire si form_OK est faux    
         if(!form_OK){
-            e.preventDefault();
-            //document.querySelector("#e-email").textContent = 'Ce champ doit contenir un @ et un .'; 
-              
+            e.preventDefault();      
         } 
         // si pas de contenu alors message d'erreur
-        if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
+        else if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
             form_OK = false;
             document.querySelector("#erreur").textContent = "Champ saisie incorrect";
          // Sinon si tout est bien rempli alors on envoi le formulaire   

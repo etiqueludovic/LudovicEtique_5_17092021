@@ -183,7 +183,7 @@ function valider(e){
             e.preventDefault();      
         } 
         // si pas de contenu alors message d'erreur
-        else if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
+        if(lastName.value == "" || firstName.value == "" || form_OK == false || adress.value == "" || city.value == ""){
             form_OK = false;
             document.querySelector("#erreur").textContent = "Champ saisie incorrect";
          // Sinon si tout est bien rempli alors on envoi le formulaire   

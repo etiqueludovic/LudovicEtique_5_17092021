@@ -23,11 +23,11 @@
     <div id="name"></div>
     <div id="price"></div>
     <label for="couleur" >Choisir une couleur:
-    <select name="couleur" id="couleur" required onchange="couleur()"> <option value="starter" selected>---Veuillez Choisir une couleur---</option></select>
+    <select name="couleur" id="couleur" required onchange="window.couleur()"> <option value="starter" selected>---Veuillez Choisir une couleur---</option></select>
    
     </label>
-    <div id="quantite"><button class="btn_moin" onclick="moin()">-</button><span class="qty">0</span><button class="btn_plus" onclick="plus()">+</button></div>
-    <button id="envoyer" type="submit" name="envoyer" onclick="envoyer()">Ajouter dans le Panier</button>
+    <div id="quantite"><button class="btn_moin" onclick="window.moin()">-</button><span class="qty">0</span><button class="btn_plus" onclick="window.plus()">+</button></div>
+    <button id="envoyer" type="submit" name="envoyer" onclick="window.envoyer()">Ajouter dans le Panier</button>
     <form id="retourpanier" action="Panier.html">
     <button class="retourpanier" type="submit" name="retourpanier">Accéder au Panier</button>
     </form>
@@ -40,7 +40,6 @@
 <!--pied de page-->
 <footer>
 </footer>
-
 
 <script type="module" src="JS/General.js"></script>
 <script type="module" src="JS/Produit.js"></script>

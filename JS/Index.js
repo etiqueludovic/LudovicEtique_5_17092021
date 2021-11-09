@@ -1,4 +1,5 @@
 import {Article} from './General.js';
+import {quantite} from './General.js';
 
 // récupération du Back-end
 let url = 'http://localhost:3000/api/teddies';
@@ -28,9 +29,8 @@ fetch(url)
         //console.log("Le serveur local (port: 3000) n'est pas lancé");
     });
 
-    // récupération des information dnas la localStorage
-    let produits = JSON.parse(localStorage.getItem("produits"));
-    // variable totqty réglé à 0
+    
+ /*   // variable totqty réglé à 0
     var totqty = 0;
 // fonction quantite qui sert à indiquer la quantité total du panier
 function quantite(){
@@ -49,6 +49,7 @@ function quantite(){
     
 }};
 console.log(totqty)
-};
+};*/
 // on lance la fonction quantite
 quantite();
+

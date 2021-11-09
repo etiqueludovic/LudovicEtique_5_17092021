@@ -1,4 +1,5 @@
 import {Article} from './General.js';
+import {quantite} from './General.js';
 
 // récupération de de l'id du produit 
 let params = new URL(document.location).searchParams;
@@ -125,23 +126,6 @@ window.envoyer = function envoyer(){
         })
 };
 
-// variable avec comme valeur par defaut 0
-var totqty = 0;
-// fonction quantite qui sert à indiquer la quantité total du panier
-function quantite(){
-    // si pas de tableau produits dans le localstorage on indique la valeur par defaut 0
-    if (produits == "" || produits == undefined){
-        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
-    }
-    // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
-    else{
-    for(let k = 0;k < produits.length; k++){
-        totqty += Number(produits[k].qty);
-        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
-    
-        }   
-    };
-};
 // on lance la fonction quantite
 quantite();
 

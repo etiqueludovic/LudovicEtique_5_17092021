@@ -66,7 +66,7 @@ recup();
 var recordprice = 0;
 
 // Fonction du bouton envoyer
-function envoyer(){
+window.envoyer = function envoyer(){
     fetch(urllocal)
         .then((response) => response.json())
         .then((jsondata) => {
@@ -145,21 +145,25 @@ function quantite(){
 // on lance la fonction quantite
 quantite();
 
+
 // si le bouton plus est cliqué on déclenche la fonction
-function plus(){
+let btn_plus = document.querySelector(".btn_plus");
+window.plus = function plus(){ 
     // on ajoute la quantité à chaque clique et on commence par +1 au premier clique au lieu de 0
         var qtydefaut = qtyvalue++; 
         document.querySelector(`.qty`).textContent = (qtydefaut++)+1;      
-    };
-           
-function moin(){ 
+    
+};
+btn_plus.addEventListener('click', plus)
+
+window.moin = function moin(){ 
     // on ajoute la quantité à chaque clique et on commence par -1 au premier clique au lieu de 0
         var qtydefaut = qtyvalue--;
         document.querySelector(`.qty`).textContent = (qtydefaut--)-1;          
     };
 
     // quand la couleur est sélectionné, la fonction ce déclenche
-function couleur(){
+window.couleur = function couleur(){
     if (produits){
         // Grâce à cette boucle nous prenons le bon produit sélectionné (id + couleur)
     for(let a = 0;a < produits.length; a++){
@@ -186,6 +190,10 @@ function couleur(){
     document.querySelector("#envoyer").style = 'display:visible';
     document.querySelector(".btn_plus").style = 'display:visible';
     document.querySelector(".btn_moin").style = 'display:visible';
+        }
+    else{
+            document.querySelector("#couleur").style.borderColor = "red"; 
+            document.querySelector('.qty').innerHTML = `<span class="qty">${0}</span>`;
         }
     }
 }

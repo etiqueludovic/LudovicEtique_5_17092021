@@ -100,7 +100,6 @@ function plus(){
 };
 // on déclenche la fonciton plus
 plus();
-
 let btn_moin = document.querySelectorAll(".btn_moin");
 function moin(){
     for (let k = 0; k < btn_moin.length; k++){

@@ -28,28 +28,7 @@ fetch(url)
         document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
         //console.log("Le serveur local (port: 3000) n'est pas lancé");
     });
-
     
- /*   // variable totqty réglé à 0
-    var totqty = 0;
-// fonction quantite qui sert à indiquer la quantité total du panier
-function quantite(){
-    // si pas de tableau produits dans le localstorage on indique la valeur par defaut 0
-    if (produits == "" || produits == undefined){
-        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
-    }
-    // sinon on indique la valeur total de quantité qui ce trouve dans le tableau produits
-    else{
-    
-    for(let k = 0;k < produits.length; k++){
-        // boucle qui récupére chaque quantité pour les additionner
-    totqty += Number(produits[k].qty);
-        // remplace la valeur HTML par celle-ci
-        document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;
-    
-}};
-console.log(totqty)
-};*/
 // on lance la fonction quantite
 quantite();
 

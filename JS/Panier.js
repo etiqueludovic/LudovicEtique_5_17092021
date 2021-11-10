@@ -4,7 +4,7 @@ let totalorder = JSON.parse(localStorage.getItem("totalorder"));
 
 var tot = 0;
 var pricetot = 0;
-
+// Fonction qui récupére les données du local storage et les inséres par ligne d'article selon l'array Produits
 function affichage(){
     //si produits n'existe pas alors message d'erreur
 if(produits == null){
@@ -36,7 +36,7 @@ if(produits == null){
 };
 // on déclenche la fonction affichage
 affichage();
-
+// Fonction qui supprime la ligne d'article quand on clique sur la poubelle
 function del(){
     // récupération du bouton déclencheur
     let btn_suppr = document.querySelectorAll(".btn-suppr");
@@ -65,6 +65,7 @@ del();
 
 // récupération du bouton plus
 let btn_plus = document.querySelectorAll(".btn_plus");
+// Fonction qui incrémente la quantité d'article tout en recalculant les champs lié à cette quantité
 function plus(){
     for (let k = 0; k < btn_plus.length; k++){
         //événement su bouton plus de la ligne
@@ -101,6 +102,7 @@ function plus(){
 // on déclenche la fonciton plus
 plus();
 let btn_moin = document.querySelectorAll(".btn_moin");
+// Fonction qui décrémente la quantité d'article tout en recalculant les champs lié à cette quantité
 function moin(){
     for (let k = 0; k < btn_moin.length; k++){
         btn_moin[k].addEventListener("click", (event) =>{
@@ -145,6 +147,7 @@ function moin(){
 };
 moin();
 
+// Fonction qui vérifie le formulaire et si totu est ok l'envoi au Back-end pour récupérer un numéro de confirmation
 function valider(e){
         // valeur par defaut des champs suivant
         var lastName = coordonnées.elements["e-lastname"];
@@ -241,6 +244,7 @@ var coordonnées = document.getElementById("coordonnées");
 coordonnées.addEventListener('submit', valider);
 
 var totqty = 0;
+// Fonction qui récupére la totalité de quantité dans le panier et ce modifie en direct quand on modifie la quantité dans le panier
 function quantite(){
     if (produits == "" || produits == undefined){
         document.querySelector(".fa-shopping-cart").innerHTML = `<span id="qty">${totqty}</span>`;

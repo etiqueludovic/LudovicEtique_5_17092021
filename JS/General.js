@@ -1,3 +1,4 @@
+// création d'une nouvelle class (exporté dans index.js et Produit.js)
 export class Article{
     constructor(jsondonnee){
         jsondonnee && Object.assign(this, jsondonnee)
@@ -8,7 +9,7 @@ export class Article{
 let produits = JSON.parse(localStorage.getItem("produits"));
 // variable avec comme valeur par defaut 0
 var totqty = 0;
-// fonction quantite qui sert à indiquer la quantité total du panier
+// Fonction quantite qui sert à indiquer la quantité total du panier (exporter dans index.js et Produit.js)
 export function quantite(){
     // si pas de tableau produits dans le localstorage on indique la valeur par defaut 0
     if (produits == "" || produits == undefined){

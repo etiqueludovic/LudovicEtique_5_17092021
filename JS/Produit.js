@@ -6,8 +6,6 @@ let params = new URL(document.location).searchParams;
 let _id = params.get("id");
 // récupération du tableau json Produits
 let produits = JSON.parse(localStorage.getItem("produits"));
-//récupération du tableau json totalorder
-let totalorder = JSON.parse(localStorage.getItem("totalorder"));
 // contruct de l'urllocal contenant l'ID du produits sélectionné
 const urllocal = `http://localhost:3000/api/teddies/${_id}`;
 
@@ -17,8 +15,8 @@ let recordproductid = "";
 let recordcolor = "";
 let qtyvalue = 0;
 
+ // Fonction qui récupére les produits s'il existe dans le localstorage sinon vide.
 function record(){
-    // si produits existe dans le localstorage alors on récupére ces informations
 if(produits){ 
     for(let p = 0;p < produits.length; p++){
         // récupération de l'id et de la couleur pour avoir un ID unique
@@ -33,7 +31,7 @@ if(produits){
 };
 record();
 
-// récupération des données du produit
+// Fonction qui récupére les données du produit suivant l'ID de l'url et les injecte dans l'HTML
 function recup(){
 fetch(urllocal)
     .then((response) => response.json())
@@ -51,22 +49,18 @@ fetch(urllocal)
                 // boucle pour récupérer les couleurs de l'élément
                 for(let col of donnee.colors){
                 document.querySelector("#couleur").innerHTML +=  `<option value="${col}">${col}</option>`;
-            }
-            
-            })
+                }        
+    })
     .catch(function(){
         // si le port 3000 n'est pas lancé alors message d'erreur
                 document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
                 //console.log("Le serveur local (port: 3000) n'est pas lancé");
                 
-            });
+    });
 };
 recup();
 
-// valeur par defaut de recordprice
-var recordprice = 0;
-
-// Fonction du bouton envoyer
+// Fonction qui enregistre le produit et ces informations ainsi que la quantité en cliquant sur le bouton envoyer
 window.envoyer = function envoyer(){
     fetch(urllocal)
         .then((response) => response.json())
@@ -126,34 +120,28 @@ window.envoyer = function envoyer(){
         })
 };
 
-// on lance la fonction quantite
-quantite();
-
-
-// si le bouton plus est cliqué on déclenche la fonction
-let btn_plus = document.querySelector(".btn_plus");
+// Fonction qui incrémente la quantité d'article
 window.plus = function plus(){ 
     // on ajoute la quantité à chaque clique et on commence par +1 au premier clique au lieu de 0
         var qtydefaut = qtyvalue++; 
         document.querySelector(`.qty`).textContent = (qtydefaut++)+1;      
     
 };
-btn_plus.addEventListener('click', plus)
-
+// Fonction qui décrémente la quantité d'article
 window.moin = function moin(){ 
     // on ajoute la quantité à chaque clique et on commence par -1 au premier clique au lieu de 0
         var qtydefaut = qtyvalue--;
         document.querySelector(`.qty`).textContent = (qtydefaut--)-1;          
     };
 
-    // quand la couleur est sélectionné, la fonction ce déclenche
+// Quand la couleur est sélectionné, la fonction ce déclenche et modifie les informations HTML (quantité, bouton)
 window.couleur = function couleur(){
     if (produits){
         // Grâce à cette boucle nous prenons le bon produit sélectionné (id + couleur)
     for(let a = 0;a < produits.length; a++){
         let idrecord = produits[a]._id;
         let colorsrecord = produits[a].colors;
-   if (document.querySelector("#couleur").value != "starter" && _id == idrecord && colorsrecord == document.querySelector("#couleur").value){
+    if (document.querySelector("#couleur").value != "starter" && _id == idrecord && colorsrecord == document.querySelector("#couleur").value){
        // nous modifions les champs (bordure dela case en vert si l'article et ça couleur existe et son sélectionné)
     document.querySelector("#couleur").style.borderColor = "green"; 
         // nous indiquons au client que l'article existe déjà dnas son panier pour éviter les doublons
@@ -169,7 +157,7 @@ window.couleur = function couleur(){
    else if(document.querySelector("#couleur").value != "starter"){
        // si cela est une couleur alors case entourer de vert et boutons hors retour panier reste visible.
     document.querySelector("#couleur").style.borderColor = "green";
-    document.querySelector('.qty').innerHTML = `<span class="qty">${qtyvalue}</span>`;
+    document.querySelector('.qty').innerHTML = `<span class="qty">${0}</span>`;
     document.querySelector("#retourpanier").style = 'display:none';
     document.querySelector("#envoyer").style = 'display:visible';
     document.querySelector(".btn_plus").style = 'display:visible';
@@ -196,3 +184,6 @@ window.couleur = function couleur(){
         
     };
 }
+
+//On lance la fonction quantite qui indique la quantité de produit dans le panier
+quantite();

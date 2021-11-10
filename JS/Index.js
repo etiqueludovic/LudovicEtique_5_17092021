@@ -3,7 +3,8 @@ import {quantite} from './General.js';
 
 // récupération du Back-end
 let url = 'http://localhost:3000/api/teddies';
-
+// Promise qui récupére les donnée du Back-end et restitue un tableau de produit
+function recupdonnee(){
 fetch(url)
         // récupération des données en Json du Back-end
     .then((response) => response.json())
@@ -28,7 +29,8 @@ fetch(url)
         document.querySelector("#main").innerHTML = `<div>Le serveur local (port: 3000) n'est pas lancé</div>`;
         //console.log("Le serveur local (port: 3000) n'est pas lancé");
     });
-    
+};
+recupdonnee()   
 // on lance la fonction quantite
 quantite();
 
